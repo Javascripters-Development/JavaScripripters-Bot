@@ -17,7 +17,7 @@ declare module "bun" {
 		CSE_KEY: string;
 		CSE_CSX: string;
 		SCRAPE_CACHE?: number;
-		ORM_DEBUG?: boolean;
+		ORM_DEBUG?: string;
 	}
 }
 export default env;
