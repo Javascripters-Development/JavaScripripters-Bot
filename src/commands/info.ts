@@ -9,7 +9,7 @@ const Info: Command = {
 		if (!interaction.guild) {
 			interaction.reply({
 				content: "Run this command in a server to get server info",
-				ephemeral: true,
+				flags: "Ephemeral",
 			});
 			return;
 		}

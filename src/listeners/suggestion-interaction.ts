@@ -16,7 +16,7 @@ import { Suggestion } from "../structures/suggestion.ts";
 const MODAL_ID = "suggestion-modal";
 const MODAL_INPUT_ID = "suggestion-reason";
 
-export default ([
+export default [
 	// Handle status update interaction
 	{
 		event: "interactionCreate",
@@ -35,15 +35,17 @@ export default ([
 
 			if (config?.suggestionManagerRole && !interaction.member.roles.cache.has(config.suggestionManagerRole)) {
 				return interaction.reply({
-					content: `You're missing the manager role and ${inlineCode("ManageGuild")} permission`,
-					ephemeral: true,
+					content: `You're missing the manager role and ${inlineCode(
+						"ManageGuild",
+					)} permission`,
+					flags: "Ephemeral",
 				});
 			}
 
 			if (!config?.suggestionManagerRole && !interaction.member.permissions.has("ManageGuild")) {
 				return interaction.reply({
 					content: `You're missing the ${inlineCode("ManageGuild")} permission`,
-					ephemeral: true,
+					flags: "Ephemeral",
 				});
 			}
 
@@ -80,10 +82,11 @@ export default ([
 			const statusString = BUTTON_ID_STATUS_MAP[interaction.customId as SuggestionButtonId];
 
 			await modalInteraction.reply({
-				content: `You set the status of ${hyperlink("this suggestion", interaction.message.url)} to ${inlineCode(
-					statusString.toLowerCase(),
-				)}`,
-				ephemeral: true,
+				content: `You set the status of ${hyperlink(
+					"this suggestion",
+					interaction.message.url,
+				)} to ${inlineCode(statusString.toLowerCase())}`,
+				flags: "Ephemeral",
 			});
 		},
 	},
@@ -107,16 +110,22 @@ export default ([
 			if (interaction.customId === VOTE_BUTTON_ID.UPVOTE) {
 				await suggestion.upvote(interaction.user.id, config);
 				await interaction.reply({
-					content: `Successfully upvoted ${hyperlink("this", interaction.message.url)} suggestion`,
-					ephemeral: true,
+					content: `Successfully upvoted ${hyperlink(
+						"this",
+						interaction.message.url,
+					)} suggestion`,
+					flags: "Ephemeral",
 				});
 			} else {
 				await suggestion.downvote(interaction.user.id, config);
 				await interaction.reply({
-					content: `Successfully downvoted ${hyperlink("this", interaction.message.url)} suggestion`,
-					ephemeral: true,
+					content: `Successfully downvoted ${hyperlink(
+						"this",
+						interaction.message.url,
+					)} suggestion`,
+					flags: "Ephemeral",
 				});
 			}
 		},
 	},
-] as Listener[]);
+] as Listener[];
